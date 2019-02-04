@@ -1,10 +1,9 @@
-'use strict';
-module.exports = (sequelize, DataTypes) => {
-  const Fruit = sequelize.define('Fruit', {
-    name: DataTypes.STRING
-  }, {});
-  Fruit.associate = function(models) {
-    // associations can be defined here
-  };
-  return Fruit;
-};
+var mongoose = require("mongoose");
+
+var Schema = mongoose.Schema;
+
+var FruitSchema = new Schema({
+  name: { type: String, required: true }
+});
+
+module.exports = mongoose.model("Fruit", FruitSchema);

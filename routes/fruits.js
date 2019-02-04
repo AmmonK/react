@@ -1,18 +1,21 @@
 var express = require("express");
 var router = express.Router();
-const sqlite = require("sqlite3").verbose();
-var models = require("../models");
+let FruitModel = require("../models/fruit");
 
-/* GET home page. */
 router.get("/", function(req, res, next) {
-  models.Fruit.findAll().then(fruits => res.json(fruits));
+  FruitModel.find()
+    .then(result => res.send(result))
+    .catch(error => res.status(500).send(error));
 });
 
 router.post("/", function(req, res, next) {
   console.log(req.body);
-  let newFruit = new models.Fruit();
+  let newFruit = new FruitModel();
   newFruit.name = req.body.name;
-  newFruit.save().then(fruit => res.json(fruit));
+  newFruit
+    .save()
+    .then(fruit => res.json(fruit))
+    .catch(error => res.status(400).send(error));
 });
 
 module.exports = router;
